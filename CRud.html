@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h1>Ajouter un stagiaire</h1><br>
+        <label for="num">Numéro du stagiaire : </label>
+        <input type="number" id="num" required><br>
+        <label for="nom">Nom : </label>
+        <input type="text" id="nom" required><br>
+        <label for="prenom">Prénom : </label>
+        <input type="text" id="prenom" required><br>
+        <label for="moyenne">Moyenne : </label>
+        <input type="text" id="moyenne" required><br>
+        <label for="grp">Groupe : </label>
+        <input type="text" id="grp" required><br>
+<input type="button"  id="ajouter" onclick="Ajouter()" value="Ajouter">
+<input type="button"  id="afficher" onclick="Afficher()" value="Afficher">
+
+       
+    </form>
+ <table id="info_stage"></table>
+ <table id="calcul"></table>
+    <script>
+        var Stagiaires=[
+        {num:1,nom:'Ahmadi',prenom:'mohammed',moyenne:14.23,grp:'DD104'},
+        {num:1,nom:'Issaoui',prenom:'Khalid',moyenne:17.15,grp:'DD101'},
+        {num:1,nom:'Akhnouch',prenom:'Brahim',moyenne:10.28,grp:'DD102'},
+        {num:1,nom:'Bennani',prenom:'Aicha',moyenne:15.78,grp:'DD103'},
+        ]
+
+        function Ajouter(){
+            var num=document.getElementById("num").value;
+            var nom=document.getElementById("nom").value;
+            var prenom=document.getElementById("prenom").value;
+            var moyenne=document.getElementById("moyenne").value;
+            var grp=document.getElementById("grp").value;
+
+             var Stagiaire={
+                num:num,
+                nom:nom,
+                prenom:prenom,
+                moyenne:moyenne,
+                grp:grp
+             };
+
+             document.getElementById("num").value=" ";
+             document.getElementById("nom").value=" ";
+             document.getElementById("prenom").value=" ";
+             document.getElementById("moyenne").value=" ";
+             document.getElementById("grp").value=" ";
+             Stagiaires.push(Stagiaire);
+        }
+        function Afficher(){
+            var tab1=document.getElementById("info_stage").value;
+            var tab2=document.getElementById("calcul").value;
+            if(Stagiaires.length>0){
+                var head="<tr><th>Numéro</th><th>Nom</th><th>Prénom</th><th>Moyenne Générale></th><th>Groupe</th><th>Action</th></tr>"
+                var ligne="";
+                Stagiaires.forEach(
+                    function(Stagiaires){
+                    var lignes="<tr><td>"+Stagiaires.num+"</td><td>"+Stagiaires.nom+"</td><td>"+Stagiaires.prenom+"</td><td>"+Stagiaires.moyenne+"</td><td>"+Stagiaires.grp+"</td><td><input type='button' id='modifier' value='Modifier' onclick='Modifier("+numero+")'><input type='button' id='supprimer' value='Supprimer' onclick='Supprimer("+numero+")'>";
+                    lignes+=ligne;
+                    tab1.innerHTML=head+lignes;
+                })
+                var sum=0;
+                var maxmoyenne=Math.max(...Stagiaires.map(Stagiaire.moyenne));
+                var minmoyenne=Math.min(...Stagiaires.map(Stagiaire.moyenne));
+
+                Stagiaires.forEach(function(Stagiaires){
+                 
+                 
+}
+)
+            }
+        }
+        function Supprimer(numero){
+            Stagiaires.splice(1,numero);
+          Afficher()
+        }
+
+        function Modifier(){
+            
+        }
+    </script>
+</body>
+</html>

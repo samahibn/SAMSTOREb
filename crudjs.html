@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activite CRUD</title>
+    <link rel="icon" href="icon.png">
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Gestion Clients</legend><br>
+            <label>Numero Client: </label><input type="text" id="num" required><br><br>
+            <label>Nom: </label><input type="text" id="nom" required><br><br>
+            <label>Prénom: </label><input type="text" id="prenom" required><br><br>
+            <label>Salaire: </label><input type="text" id="salaire" required><br><br>
+            <input type="button" value="Ajouter" onclick="ajouter()"> 
+            <input type="button" value="Afficher" onclick="afficher()">
+        </fieldset>
+    </form>
+    <table id="infos"></table><br>
+    <table id="Table"></table>
+
+    <script>
+        var clients = [];
+
+        function ajouter() {
+            var numero = document.getElementById("num").value;
+            var nom = document.getElementById("nom").value;
+            var prenom = document.getElementById("prenom").value;
+            var salaire = parseFloat(document.getElementById("salaire").value);
+
+            var client = {
+                numero: numero,
+                nom: nom,
+                prenom: prenom,
+                salaire: salaire
+            };
+
+            document.getElementById("num").value = "";
+            document.getElementById("nom").value = "";
+            document.getElementById("prenom").value = "";
+            document.getElementById("salaire").value = "";
+
+            clients.push(client);
+        }
+
+        function afficher() {
+            var infos = document.getElementById("infos");
+            var Table = document.getElementById("Table");
+
+            infos.innerHTML = "";
+            Table.innerHTML = "";
+
+            if (clients.length > 0) {
+                var thead = "<tr><th>Numero client</th><th>Nom</th><th>Prénom</th><th>Salaire</th></tr>";
+
+                var lignes = "";
+                clients.forEach(function (client) {
+                    var ligne = "<tr><td>" + client.numero + "</td><td>" + client.nom + "</td><td>" + client.prenom + "</td><td>" + client.salaire + "</td></tr>";
+                    lignes += ligne;
+                });
+
+                infos.innerHTML = thead + lignes;
+
+                var somme = 0;
+                var salaireMax = Math.max(...clients.map(client => client.salaire));
+                var salaireMin = Math.min(...clients.map(client => client.salaire));
+
+                clients.forEach(function (client) {
+                    somme += client.salaire;
+                });
+
+                var moyenne = somme / clients.length;
+
+                var thead2 = "<tr><th>Masse Salariale</th><th>Moyenne</th><th>Max</th><th>Min</th></tr>";
+                var lignes2 = "<tr><td>" + somme + "</td><td>" + moyenne + "</td><td>" + salaireMax + "</td><td>" + salaireMin + "</td></tr>";
+
+                Table.innerHTML = thead2 + lignes2;
+            }
+        }
+    </script>
+</body>
+</html>
